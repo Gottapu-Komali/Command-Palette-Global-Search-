@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import type { FC, KeyboardEvent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { fuzzySearch } from './utils/fuzzySearch';
 import { useCommandPaletteContext } from './CommandPaletteProvider';
@@ -12,7 +13,7 @@ import type { Command, SearchResult } from './types';
  * - Implements a manual focus trap for accessibility.
  * - Uses a custom fuzzy search algorithm with deterministic ranking.
  */
-export const CommandPalette: React.FC = () => {
+export const CommandPalette: FC = () => {
     const { commands } = useCommandPaletteContext();
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState('');
@@ -67,7 +68,7 @@ export const CommandPalette: React.FC = () => {
     }, [isOpen]);
 
     // Manual Focus Trap Logic
-    const handleContainerKeyDown = (e: React.KeyboardEvent) => {
+    const handleContainerKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Tab') {
             e.preventDefault(); // Lock focus inside search input
             inputRef.current?.focus();
@@ -116,7 +117,7 @@ export const CommandPalette: React.FC = () => {
         }
     };
 
-    const handleInputKeyDown = (e: React.KeyboardEvent) => {
+    const handleInputKeyDown = (e: KeyboardEvent) => {
         switch (e.key) {
             case 'ArrowDown':
                 e.preventDefault();
@@ -256,7 +257,7 @@ export const CommandPalette: React.FC = () => {
 
 function highlightText(text: string, matches: number[][], selected: boolean) {
     if (!matches.length) return text;
-    const parts: React.ReactNode[] = [];
+    const parts: ReactNode[] = [];
     let last = 0;
     matches.forEach((match, i) => {
         const start = match[0];

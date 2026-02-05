@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
-import { Command, Plugin } from './types';
+import { createContext, useContext, useState, useCallback } from 'react';
+import type { ReactNode, FC } from 'react';
+import type { Command, Plugin } from './types';
 
 interface CommandPaletteContextType {
     commands: Command[];
@@ -9,7 +10,7 @@ interface CommandPaletteContextType {
 
 const CommandPaletteContext = createContext<CommandPaletteContextType | undefined>(undefined);
 
-export const CommandPaletteProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const CommandPaletteProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [plugins, setPlugins] = useState<Record<string, Plugin>>({});
 
     const registerPlugin = useCallback((plugin: Plugin) => {
