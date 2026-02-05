@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import type { FC, KeyboardEvent, ReactNode } from 'react';
+import type { FC, ReactNode, KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { fuzzySearch } from './utils/fuzzySearch';
 import { useCommandPaletteContext } from './CommandPaletteProvider';
@@ -68,7 +68,7 @@ export const CommandPalette: FC = () => {
     }, [isOpen]);
 
     // Manual Focus Trap Logic
-    const handleContainerKeyDown = (e: KeyboardEvent) => {
+    const handleContainerKeyDown = (e: ReactKeyboardEvent) => {
         if (e.key === 'Tab') {
             e.preventDefault(); // Lock focus inside search input
             inputRef.current?.focus();
@@ -117,7 +117,7 @@ export const CommandPalette: FC = () => {
         }
     };
 
-    const handleInputKeyDown = (e: KeyboardEvent) => {
+    const handleInputKeyDown = (e: ReactKeyboardEvent) => {
         switch (e.key) {
             case 'ArrowDown':
                 e.preventDefault();
